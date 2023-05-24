@@ -2,6 +2,12 @@ from django.shortcuts import render, redirect
 from todo.models import TodoList
 
 # Create your views here.
+def update_todo(request):
+	return render(
+		request,
+		'todo/todo_update.html',
+	)
+ 
 def create_todo(request):
 	myTodo = TodoList()
 	if request.method == 'POST':
