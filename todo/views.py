@@ -59,3 +59,9 @@ def todos(request):
 			'todolist': todolist,
 			}
 	)
+ 
+def complete_todo(request, pk):
+    curTodo = get_object_or_404(TodoList, pk=pk)
+    curTodo.complete = True
+    curTodo.save()
+    return redirect('todos')
