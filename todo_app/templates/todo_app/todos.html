@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<title>ToDo List Demo</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="{% static 'todo/bootstrap/bootstrap.min.css' %}">
+	<link rel="stylesheet" href="{% static 'todo_app/bootstrap/bootstrap.min.css' %}">
 </head>
 <body>
 <section class="vh-100" style="background-color: #eee;">
@@ -22,41 +22,48 @@
 							<tr>
 							<th>ToDo</th>
 							<th>Description</th>
+							{% if user.is_authenticated %}
 							<th>Update</th>
 							<th>Actions</th>
+							{% endif %}
 							</tr>
 						</thead>
 						<tbody>
-							{% for todo in todolist %}
-							{% if todo.complete != True %}
+							{% for t in todos %}
+							{% if t.complete == False %}
 							<tr class="fw-normal">
 							<th>
-								{% if todo.important %}
+								{% if t.important == True %}
 								<i class="fa-solid fa-star text-warning"></i>
 								{% else %}
 								<i class="fa-solid fa-star"></i>
 								{% endif %}
-								<span class="ms-2">{{ todo.todo }}</span>
+								<span class="ms-2">{{t.todo}}</span>
 							</th>
 							<td class="align-middle">
-								<span>{{ todo.description }}</span>
+								<span>{{t.description}}</span>
+							</td>
+							{% if user.is_authenticated %}
+							<td class="align-middle">
+								<h5 class="mb-0"><a href="/todo/update_todo/{{t.pk}}" role="button" class="badge bg-secondary" style="text-decoration-line: none;">수정하기</a></h6>
 							</td>
 							<td class="align-middle">
-								<h5 class="mb-0"><a href="{% url 'update' todo.pk %}" role="button" class="badge bg-secondary" style="text-decoration-line: none;">수정하기</a></h6>
+								<a href="/todo/completed_todo/{{t.pk}}" data-bs-toggle="tooltip" data-bs-title="Done"><i class="fa-solid fa-check text-success me-3"></i></a>
+								<a href="/todo/delete_todo/{{t.pk}}" data-bs-toggle="tooltip" data-bs-title="Remove"><i class="fa-solid fa-trash-can text-danger"></i></a>
 							</td>
-							<td class="align-middle">
-								<a href="{% url 'complete' todo.pk %}" data-bs-toggle="tooltip" data-bs-title="Done"><i class="fa-solid fa-check text-success me-3"></i></a>
-								<a href="{% url 'delete' todo.pk %}" data-bs-toggle="tooltip" data-bs-title="Remove"><i class="fa-solid fa-trash-can text-danger"></i></a>
-							</td>
+							{% endif %}
 							</tr>
 							{% endif %}
 							{% endfor %}
+							
 						</tbody>
 					</table>
 				</div>
+				{% if user.is_authenticated %}
 				<div class="card-footer text-end p-3">
-					<a href="{% url 'create'%}" class="btn btn-primary">Add Task</a>
+					<a class="btn btn-primary" href="create_todo/">Add Task</a>
 				</div>
+				{% endif %}
 			</div>
 		</div>
 	</div>

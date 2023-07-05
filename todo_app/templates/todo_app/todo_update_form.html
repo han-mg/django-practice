@@ -1,0 +1,21 @@
+<!-- views.py의 TodoCreate 클래스가 알아서 _form 파일을 찾아서가게 해줌 -->
+<!DOCTYPE html>
+{% load static %}
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>Edit Todo</title>
+	<link rel="stylesheet" href="{% static 'todo_app/bootstrap/bootstrap.min.css' %}">
+</head>
+<body>
+	<h1>Edit Todos</h1>
+	<hr/>
+	<form method='post' enctype="multipart/form-data" action="">
+        {% csrf_token %}
+		<table>
+			{{ form }}
+		</table>
+		<button type="submit" class="btn btn-primary float-right">Submit</button>
+	</form>
+</body>
+</html>
