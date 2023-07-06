@@ -24,6 +24,7 @@ class TodoUpdate(UpdateView):
 class TodoCreate(LoginRequiredMixin, CreateView):
     model = Todo
     fields = ['todo', 'description', 'important']
+    ligin_url = '/accounts/signin/' # 기본 설정은 다르게 되어있어서 직겁 지정해주어야 함
 
 
 def Todos(request):
