@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sign Up</title>
+</head>
+<body>
+    <h2>Sign Up (로그아웃)</h2>
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}  <!-- 만들어진 폼을 <p> 태그로 나열해서 출력하겠다는 의미 -->
+        <button type="submit">Sign Up</button>
+    </form>
+</body>
+</html>
